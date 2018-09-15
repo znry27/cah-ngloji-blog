@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- script diatas ini adalah script default -->
+
+        <record id="service_form" model="ir.ui.view">
+            <field name="name">Service Form</field>
+            <field name="model">my.service</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- tempatkan kode header seperti tombol dll disini -->
+
+                        <button name="update_form_to_in_progress"
+                            type="object"
+                            class="oe_highlight"
+                            string="Set to In Progress"/>
+
+                        <button name="update_form_to_cancel"
+                            type="object"
+                            class="oe_highlight"
+                            string="Cancel"/>
+
+                        <button name="update_form_to_finish"
+                            type="object"
+                            class="oe_highlight"
+                            string="Finish"/>
+
+                        <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,in_progress,finish,take"/>
+                    </header>
+                    <sheet>
+                        <!-- tempatkan kode yang berhubungan dengan input disini -->
+                        <!-- usahakan kode pertama adalah group, group digunakan untuk membagi view dalam beberapa kolom, juga untuk menampilkan string/label -->
+                        <!-- membagi tampilan dalam 2 kolom -->
+                        <group>
+                            <group>
+                                <field name="customer" />
+                                <field name="device" />
+                                <field name="is_guarantee" />
+                            </group>
+                            <group>
+                                <field name="service_date" />
+                                <field name="device_sn" />
+                                <field name="type_of_service" />
+                            </group>
+                        </group>
+                        <!-- membagi tampilan dalam 3 kolom -->
+                        <group col="12">
+                            <group colspan="4">
+                                <field name="scheduled_date" />
+                            </group>
+                            <group colspan="4">
+                                <field name="finish_date" />
+                            </group>
+                            <group colspan="4">
+                                <field name="take_by_customer_date" />
+                            </group>
+                        </group>
+                        <!-- tampilan penuh untuk input text yang panjang -->
+                        <group>
+                            <field name="description" />
+                        </group>
+                        <!-- kode html dengan bootstrap -->
+                        <div>
+                            <p>
+                                Ini adalah kode <span class="label label-success">HTML</span> dengan <span class="label label-primary">Bootstrap</span>
+                            </p>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- kode untuk Tree -->
+        <record id="service_tree" model="ir.ui.view">
+            <field name="name">Service Tree</field>
+            <field name="model">my.service</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="customer"/>
+                    <field name="device"/>
+                    <field name="service_date" />
+                    <field name="scheduled_date" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- buat action untuk aksi utama-->
+        <record model="ir.actions.act_window" id="open_service_form">
+            <field name="name">Service Form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Menu utama service -->
+        <menuitem name="Service"
+            id="service_main_menu"
+            web_icon="module_odoo_bag_enam,static/description/icon.png"
+            action="open_service_form"
+            sequence="0"/>
+
+        <!-- script dibawah ini adalah script default -->
+    </data>
+</odoo>
